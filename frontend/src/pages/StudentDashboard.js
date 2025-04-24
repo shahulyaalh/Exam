@@ -36,6 +36,7 @@ const StudentDashboard = () => {
         const res = await axios.get(
           `http://localhost:5000/api/student/${studentId}`
         );
+        console.log("Fetched student data:", res.data); // Debugging line to check data structure
         setStudentData(res.data);
       } catch (err) {
         setMessage({ text: "Error fetching student data", type: "error" });
@@ -103,8 +104,10 @@ const StudentDashboard = () => {
             </Typography>
 
             <Box sx={{ marginTop: 2 }}>
+              {/* Regular Subjects Section */}
               <Typography variant="h6">📜 Regular Subjects:</Typography>
-              {studentData.subjects.some((subj) => subj.type !== "arrear") ? (
+              {studentData.subjects &&
+              studentData.subjects.some((subj) => subj.type !== "arrear") ? (
                 <TableContainer component={Paper} sx={{ marginTop: 1 }}>
                   <Table>
                     <TableHead>
@@ -139,10 +142,12 @@ const StudentDashboard = () => {
                 </Typography>
               )}
 
+              {/* Arrear Subjects Section */}
               <Typography variant="h6" sx={{ marginTop: 4 }}>
                 📜 Arrear Subjects:
               </Typography>
-              {studentData.subjects.some((subj) => subj.type === "arrear") ? (
+              {studentData.subjects &&
+              studentData.subjects.some((subj) => subj.type === "arrear") ? (
                 <TableContainer component={Paper} sx={{ marginTop: 1 }}>
                   <Table>
                     <TableHead>
